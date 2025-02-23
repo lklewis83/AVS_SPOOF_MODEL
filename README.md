@@ -1,6 +1,9 @@
 # AVS SPOOF MODEL
 Tensorflow Audio Spoof Detection Model Trained with AVS Spoof 2019 Dataset
 
+## Introduction
+This project focuses on detecting audio spoofs using a deep learning model trained on the AVSSpoof 2019 dataset. The model identifies bonafide and spoofed speech samples, including text-to-speech (TTS) and voice conversion (VC) attacks.
+
 ## Data Preprocessing
 I utilized the [AVSSpoof 2019 dataset](https://www.kaggle.com/c/asvspoof-2019), which consists of bonafide and spoofed speech samples. The spoofed data includes text-to-speech (TTS) and voice conversion (VC) attacks, categorized under different attack types (A01–A19). The preprocessing steps included:
 - **Feature Extraction**: Extracted Mel-Frequency Cepstral Coefficients (MFCC) features from each audio sample.
@@ -38,16 +41,17 @@ The dataset was split into training and validation sets using k-fold cross-valid
 | Recall     | 0.7013|
 | AUC        | 0.8048|
 
-## Singular Spoof Evaluation
-To validate the decision-making process of the model, I tested individual spoofed audio samples. The model successfully classified most spoofed attacks, especially those generated using methods like Griffin-Lim (A11), waveform concatenation (A16), and vocoder-based (A13, A12). However, the model faced challenges with:
-- **Successfully Classified**:
-  - Griffin-Lim (A11)
-  - Waveform Concatenation (A16)
-  - Vocoder-based methods (A12, A13)
-- **Challenging Cases**:
-  - Voice Conversion Attacks (A17, A18)
-  - TTS Vocoder-based methods (A14)
-  - (Some predictions produced invalid values ≥ 1)
+## Files in this Repository
+
+- **AVSSpoof_Model_ORG.ipynb**: This Jupyter notebook contains the original model code used for training the audio spoofing detection model.
+- **AVSSpoof_FUNCTION.ipynb**: A notebook for applying the pre-trained model to evaluation data to validate its performance.
+- **FUNCTION_TTS.ipynb**: This notebook demonstrates how to use text-to-speech technology to audibly output the results of the model using gTTS.
+- **README.md**: The guide documenting the project's purpose, structure, and usage instructions.
+- **audio_spoofing_model.keras**: The trained Keras model that can be loaded to predict new data or further refine the model.
+
+## Converting Model Results into Audio with gTTS
+
+To make the results of the audio spoofing model more accessible, especially for visually impaired users, the results can be converted into spoken audio using the gTTS (Google Text-to-Speech) library. gTTS is a Python library and CLI tool to interface with Google Translate's text-to-speech API. It converts text into spoken audio without requiring an authentication key, which simplifies sharing and reusing the model. You can use gTTS as demonstrated in the `FUNCTION_TTS.ipynb` notebook, providing an effective way to hear the results directly.
 
 ## ASV Spoof Takeaway
 This study demonstrates the feasibility of using TensorFlow for audio spoof detection. While the model achieved near-perfect performance during training, its evaluation performance suggests potential room for improvement in generalization. Future work includes optimizing feature extraction, addressing output scaling issues, and refining classification thresholds for improved real-world accuracy.
